@@ -1,37 +1,80 @@
 import React from './core/react.js';
 import './asset/index.css';
 
+let countFoo = 1;
+function Foo(){
+    const update = React.update();
 
-let show = false;
-function Counter(){
+    function handleClick(){
+        countFoo++;
+        update();
+    }
     return (
-        <>
-        <button onClick={()=>{
-            num++;
-            props.id = num;
-            React.update();
-        }} onAbort={()=>{
-            console.log('blur');
-        }}>+1</button>
-        <div {...props}>count:{num}次</div>
-        </>
+        <div>
+            <h1>foo</h1>
+            {countFoo}
+            <button onClick={handleClick}>click</button>
+        </div>
     )
 }
 
-function showStatus(){
-    show = !show;
-    React.update();
-}   
+function FooShow(){
+    return (
+        <div>
+            <h1>foo</h1>
+        </div>
+    )
+}
 
+let countBar = 1;
+function Bar(){
+    const update = React.update();
+
+    function handleClick(){
+        countBar++;
+        update();
+    }
+    return (
+        <div>
+            <h1>bar</h1>
+            {countBar}
+            <button onClick={handleClick}>click</button>
+        </div>
+    )
+}
+
+let show = true;
+function ShowStatus(){
+    const update = React.update();
+
+    function handleClick(){
+        show = !show;
+        update();
+    }
+
+    return (
+        <div>
+            <div>{show && <FooShow/>}</div>
+            <button onClick={handleClick}>更改显隐状态</button>
+        </div>
+    )
+}
+function UpdateModule(){
+    return (
+        <div>
+            <Foo/>
+            <Bar/>
+        </div>
+    )
+}
 function App(){
     return (
         <div class="hello" id="hello">
-            <button onClick={showStatus}>更改显隐状态</button>
-            <span>{show?'show':'hide'}</span>
-        </div>
+            <ShowStatus/>
+            <UpdateModule />
+    </div>
     );
 }
 
-// console.log(AppFun);
 
 export default App;
